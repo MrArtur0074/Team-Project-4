@@ -1,0 +1,85 @@
+.container
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+  padding: 20px
+
+.searchBar
+  display: flex
+  width: 90%
+  max-width: 1200px
+  margin-bottom: 30px
+
+  input
+    flex: 1
+    padding: 12px 20px
+    font-size: 16px
+    border: 2px solid #ccc
+    border-radius: 8px 0 0 8px
+    outline: none
+
+  button
+    padding: 12px 30px
+    background-color: #362d50
+    color: #fefefe
+    border: none
+    border-radius: 0 8px 8px 0
+    font-size: 16px
+    cursor: pointer
+    transition: background-color 0.3s ease
+
+    &:hover
+      background-color: #140f24
+
+.categories
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+  gap: 20px
+  width: 100%
+  max-width: 1200px
+
+.categoryCard
+  display: flex
+  border: 3px solid
+  border-radius: 16px
+  overflow: hidden
+  min-height: 180px
+  transition: transform 0.3s ease
+
+  &:hover
+    transform: translateY(-5px)
+
+.imageSection
+  width: 50%
+  background-size: cover
+  background-position: center
+
+.textSection
+  width: 50%
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 10px
+
+  h3
+    font-size: 24px
+    font-weight: 600
+    text-align: center
+
+@media (max-width: 768px)
+  .searchBar
+    flex-direction: column
+
+    input, button
+      width: 100%
+      border-radius: 8px
+      margin-bottom: 10px
+
+  .categoryCard
+    flex-direction: column
+    min-height: 250px
+
+    .imageSection, .textSection
+      width: 100%
+      height: 50%

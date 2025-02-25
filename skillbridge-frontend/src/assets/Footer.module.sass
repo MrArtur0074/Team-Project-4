@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap')
+
+* 
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+body
+  font-family: 'Poppins', sans-serif
+  min-height: 100vh
+  display: block
+  align-items: center
+  justify-content: center
+
+.siteFooter
+  background-color: #26272b
+  padding: 45px 0 20px
+  font-size: 15px
+  line-height: 24px
+  color: #737373
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5)
+
+.siteFooter hr
+  border-top-color: #bbb
+  opacity: 0.5
+
+.small
+  margin: 20px 0
+
+.siteFooter h6
+  color: #fff
+  font-size: 16px
+  text-transform: uppercase
+  margin-top: 5px
+  letter-spacing: 2px
+
+.siteFooter a
+  color: #737373
+  &:hover
+    color: #fff
+    text-decoration: none
+
+.footerLinks
+  padding-left: 0
+  list-style: none
+
+.footerLinks li
+  display: block
+
+.footerLinks a
+  color: #737373
+  &:active,
+  &:focus,
+  &:hover
+    color: #fff
+    text-decoration: none
+
+.container
+  width: 100%
+  padding-right: 15px
+  padding-left: 15px
+  margin-right: auto
+  margin-left: auto
+
+.row
+  display: flex
+  flex-wrap: wrap
+  margin-right: -15px
+  margin-left: -15px
+
+.col
+  padding-right: 15px
+  padding-left: 15px
+  flex: 1
+
+.colMd6
+  flex: 0 0 50%
+  max-width: 50%
+
+.colMd3
+  flex: 0 0 25%
+  max-width: 25%
+
+.colMd8
+  flex: 0 0 66.666667%
+  max-width: 66.666667%
+
+.colMd4
+  flex: 0 0 33.333333%
+  max-width: 33.333333%
+
+.textJustify
+  text-align: justify
+
+.socialIcons
+  padding-left: 0
+  margin-bottom: 0
+  list-style: none
+  text-align: right
+
+.socialIcons li
+  display: inline-block
+  margin-bottom: 4px
+
+.socialIcons a
+  background-color: #eceeef
+  color: #818a91
+  font-size: 16px
+  display: inline-block
+  line-height: 44px
+  width: 44px
+  height: 44px
+  text-align: center
+  margin-right: 8px
+  border-radius: 100%
+  transition: all 0.2s linear
+
+.socialIcons a:active,
+.socialIcons a:focus,
+.socialIcons a:hover
+  color: #fff
+  background-color: #29aafe
+
+.facebook:hover
+  background-color: #3b5998
+
+.twitter:hover
+  background-color: #00aced
+
+.linkedin:hover
+  background-color: #007bb6
+
+.dribbble:hover
+  background-color: #ea4c89
+
+.logo
+  color: #eb6857
+
+.copyrightText
+  margin: 0
+
+@media (max-width: 991px)
+  [class^="col"]
+    margin-bottom: 30px
+
+@media (max-width: 767px)
+  .siteFooter
+    padding-bottom: 0
+  .copyrightText,
+  .socialIcons
+    text-align: center
