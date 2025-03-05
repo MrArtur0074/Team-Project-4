@@ -1,4 +1,5 @@
 package skillbridge.example.SkillBridge_Website.entities;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Course {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +27,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
-    private User instructor;  // Courses are created by instructors
+    private User instructor; // Courses are created by instructors
 
     @Column(nullable = false)
     private Double price;

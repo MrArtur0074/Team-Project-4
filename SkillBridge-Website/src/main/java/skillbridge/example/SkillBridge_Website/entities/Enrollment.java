@@ -1,4 +1,5 @@
 package skillbridge.example.SkillBridge_Website.entities;
+
 import jakarta.persistence.*;
 import lombok.*;
 import skillbridge.example.SkillBridge_Website.entities.enums.EnrollmentStatus;
@@ -11,7 +12,7 @@ import skillbridge.example.SkillBridge_Website.entities.enums.EnrollmentStatus;
 @AllArgsConstructor
 @Builder
 public class Enrollment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

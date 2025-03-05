@@ -1,4 +1,5 @@
 package skillbridge.example.SkillBridge_Website.entities;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Lesson {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,5 +26,5 @@ public class Lesson {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String videoUrl;  // Optional video URL
+    private String videoUrl; // Optional video URL
 }
