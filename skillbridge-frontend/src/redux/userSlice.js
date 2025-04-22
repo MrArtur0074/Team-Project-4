@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Асинхронный экшен для получения данных профиля
-export const fetchUserProfile = createAsyncThunk("user/fetchProfile", async (_, { rejectWithValue }) => {
+export const fetchUserProfile = createAsyncThunk("user/fetchProfile", async (_, { getState, rejectWithValue }) => {
     try {
-        const token = sessionStorage.getItem("token");
+        const token = getState().user.token || sessionStorage.getItem("token");
+        if (!token) {
+            return rejectWithValue("No token available.");
+        }
         const response = await axios.get("http://localhost:8080/api/user/profile", {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -15,26 +18,27 @@ export const fetchUserProfile = createAsyncThunk("user/fetchProfile", async (_, 
 });
 
 // Асинхронный экшен для регистрации
-export const registerUser = createAsyncThunk("user/register", async (formData, { rejectWithValue }) => {
-    try {
-        const response = await axios.post("http://localhost:8080/api/auth/register", formData);
-        if (response.data.token) {
-            sessionStorage.setItem("token", response.data.token);
-            return response.data;
+export const registerUser = createAsyncThunk(
+    "user/register",
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post("http://localhost:8080/api/auth/register", formData);
+            return response.data;  // Assuming this returns the JWT token
+        } catch (error) {
+            return rejectWithValue(error.response.data.error || "Ошибка регистрации");
         }
-        throw new Error("Registration failed");
-    } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Ошибка регистрации");
     }
-});
+);
 
 // Асинхронный экшен для логина
-export const loginUser = createAsyncThunk("user/login", async (formData, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk("user/login", async (formData, { dispatch, rejectWithValue }) => {
     try {
         const response = await axios.post("http://localhost:8080/api/auth/login", formData);
         if (response.data.token) {
             sessionStorage.setItem("token", response.data.token);
-            return response.data;
+            // Dispatch fetchUserProfile after successful login to get user data
+            dispatch(fetchUserProfile());
+            return { token: response.data.token }; // Return the token in the payload
         }
         throw new Error("Ошибка входа");
     } catch (error) {
@@ -46,6 +50,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         user: null,
+        token: null, // Store the JWT token here
         loading: false,
         error: null,
         successMessage: null,
@@ -53,7 +58,11 @@ const userSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.user = null;
+            state.token = null;
             sessionStorage.removeItem("token");
+        },
+        setToken: (state, action) => {
+            state.token = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -79,7 +88,7 @@ const userSlice = createSlice({
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.successMessage = "Регистрация успешна!";
-                state.user = action.payload;
+                state.token = action.payload; // Assuming registration also returns the token
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -92,7 +101,8 @@ const userSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload;
+                state.token = action.payload.token; // Store the token in the state
+                // Note: User data is now handled by fetchUserProfile
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
@@ -101,6 +111,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setToken } = userSlice.actions;
 export default userSlice.reducer;
-

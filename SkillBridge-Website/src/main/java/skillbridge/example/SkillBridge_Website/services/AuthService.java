@@ -38,10 +38,13 @@ public class AuthService {
         user.setRole(skillbridge.example.SkillBridge_Website.entities.enums.Role.valueOf(request.getRole().toUpperCase()));
 
         userRepository.save(user);
-        return "User registered successfully!";
+
+        // After saving the user, generate and return a JWT token
+        return jwtUtils.generateToken(user.getEmail());
     }
 
     // Login with error handling
+    // AuthService.java
     public String login(LoginRequest request) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
 
@@ -50,8 +53,11 @@ public class AuthService {
         }
 
         User user = userOptional.get();
+        boolean passwordMatch = passwordEncoder.matches(request.getPassword(), user.getPassword());
+        System.out.println("Login attempt for user: " + user.getEmail());
+        System.out.println("Password match: " + passwordMatch);
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordMatch) {
             throw new InvalidPasswordException("Invalid password!");
         }
 

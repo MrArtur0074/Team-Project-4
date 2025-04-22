@@ -17,13 +17,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        String response = authService.register(request);
-        return ResponseEntity.ok(response);
+        // Get JWT token after registering the user
+        String token = authService.register(request);
+        return ResponseEntity.ok(token); // Return the JWT token in the response
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         String token = authService.login(request);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(token); // Return the JWT token in the response
     }
 }
