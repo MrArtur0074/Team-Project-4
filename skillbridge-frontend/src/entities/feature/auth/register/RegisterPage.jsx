@@ -1,31 +1,23 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../../../redux/userSlice";
+import React, { useEffect, useState } from "react";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../../../firebase";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../../components/Header/Header";
-import Fotter from "../../../../components/Footer/Footer";
+import Footer from "../../../../components/Footer/Footer";
 import styles from "./ui/Registration.module.sass";
 
 const RegisterPage = () => {
-    const [formData, setFormData] = React.useState({ name: "", email: "", password: "" });
-
-    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({ email: "", password: "" });
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
     const navigate = useNavigate();
-    const { loading, error, successMessage } = useSelector((state) => state.user);
 
     useEffect(() => {
-        if (successMessage) {
-            setTimeout(() => navigate("/profile"), 1500);
-        }
-    }, [successMessage, navigate]);
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+        if (user) navigate("/profile");
+    }, [user, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(registerUser(formData));
+        createUserWithEmailAndPassword(formData.email, formData.password);
     };
 
     return (
@@ -34,52 +26,36 @@ const RegisterPage = () => {
         <div className={styles.container}>
             <div className={styles.formWrapper}>
                 <h2 className={styles.title}>Registration</h2>
-
-                {error && <p className="text-red-500 text-center">{error}</p>}
-                {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
-
+                {error && <p className="text-red-500">{error.message}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className={styles.input}
-                        required
-                    />
-
                     <input
                         type="email"
                         name="email"
                         placeholder="Email"
                         value={formData.email}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className={styles.input}
                         required
                     />
-
                     <input
                         type="password"
                         name="password"
                         placeholder="Password"
                         value={formData.password}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         className={styles.input}
                         required
                     />
-
-                    <button type="submit" disabled={loading} className={styles.button}>
+                    <button type="submit" className={styles.button} disabled={loading}>
                         {loading ? "Registering..." : "Register"}
                     </button>
                 </form>
-
                 <button onClick={() => navigate("/login")} className={styles.button}>
-                    Do you already have an account? Login
+                    Already have an account? Login
                 </button>
             </div>
         </div>
-        <Fotter />
+        <Footer />
         </>
     );
 };

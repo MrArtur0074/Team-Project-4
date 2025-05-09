@@ -1,29 +1,24 @@
 //LoginPage.jsx
 import React, { useEffect, useState } from "react";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../../../firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../../../redux/userSlice";
 import Header from "../../../../components/Header/Header";
-import Fotter from "../../../../components/Footer/Footer";
+import Footer from "../../../../components/Footer/Footer";
 import styles from "./ui/Login.module.sass";
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user, loading, error } = useSelector((state) => state.user);
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
     useEffect(() => {
         if (user) navigate("/profile");
     }, [user, navigate]);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(loginUser(formData));
+        signInWithEmailAndPassword(formData.email, formData.password);
     };
 
     return (
@@ -32,14 +27,14 @@ const LoginPage = () => {
         <div className={styles.container}>
             <div className={styles.formWrapper}>
                 <h2 className={styles.title}>Login</h2>
-                {error && <p className="animate-pulse text-red-500">{error}</p>}
+                {error && <p className="text-red-500">{error.message}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
                         name="email"
                         placeholder="Email"
                         value={formData.email}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className={styles.input}
                         required
                     />
@@ -48,11 +43,11 @@ const LoginPage = () => {
                         name="password"
                         placeholder="Password"
                         value={formData.password}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         className={styles.input}
                         required
                     />
-                    <button type="submit" disabled={loading} className={styles.button}>
+                    <button type="submit" className={styles.button} disabled={loading}>
                         {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
@@ -61,7 +56,7 @@ const LoginPage = () => {
                 </button>
             </div>
         </div>
-        <Fotter />
+        <Footer />
         </>
     );
 };

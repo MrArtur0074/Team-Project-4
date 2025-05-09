@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 const CategoryPage = () => {
-  const { categoryName } = useParams();
+  const { categoryId } = useParams(); 
   const navigate = useNavigate();
 
   const [coursesSnap] = useCollection(collection(db, "courses"));
@@ -17,8 +17,8 @@ const CategoryPage = () => {
   const courses = coursesSnap?.docs.map(doc => ({ id: doc.id, ...doc.data() })) || [];
   const categories = categorySnap?.docs.map(doc => ({ id: doc.id, ...doc.data() })) || [];
 
-  const category = categories.find(c => c.id === categoryName);
-  const filteredCourses = courses.filter(course => course.category === categoryName);
+  const category = categories.find(c => c.id === categoryId);
+  const filteredCourses = courses.filter(course => course.category === categoryId);
 
   return (
     <>
