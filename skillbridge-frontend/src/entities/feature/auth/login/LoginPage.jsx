@@ -36,6 +36,7 @@ const LoginPage = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className={styles.input}
+                        autoComplete="username"
                         required
                     />
                     <input
@@ -45,6 +46,7 @@ const LoginPage = () => {
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         className={styles.input}
+                        autoComplete="current-password"
                         required
                     />
                     <button type="submit" className={styles.button} disabled={loading}>
