@@ -1,66 +1,95 @@
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../../firebase";
 import { updateProfile } from "firebase/auth";
+import { auth } from "../../../../firebase";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../../components/Header/Header";
-import Footer from "../../../../components/Footer/Footer";
 import styles from "./ui/EditProfile.module.sass";
 
 const EditProfilePage = () => {
-    const [user] = useAuthState(auth);
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [displayName, setDisplayName] = useState(auth.currentUser?.displayName || "");
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const [displayName, setDisplayName] = useState(user?.displayName || "");
-    const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
-    const [message, setMessage] = useState("");
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            setPreview(URL.createObjectURL(file));
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
-            await updateProfile(user, {
+            let photoURL = auth.currentUser.photoURL;
+
+            if (image) {
+                const formData = new FormData();
+                formData.append("file", image);
+                formData.append("upload_preset", "user_avatar_upload"); // твой unsigned preset
+                formData.append("cloud_name", "dxlwokicm"); // твое имя из Cloudinary
+
+                const res = await fetch("https://api.cloudinary.com/v1_1/dxlwokicm/image/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const data = await res.json();
+                if (data.secure_url) {
+                    photoURL = data.secure_url;
+                } else {
+                    setMessage("Ошибка загрузки изображения");
+                    return;
+                }
+            }
+
+            await updateProfile(auth.currentUser, {
                 displayName,
                 photoURL,
             });
-            setMessage("Profile updated successfully!");
-            setTimeout(() => navigate("/profile"), 1500);
-        } catch (error) {
-            setMessage(`Error: ${error.message}`);
+
+            setMessage("Профиль успешно обновлён!");
+            navigate("/profile");
+
+        } catch (err) {
+            console.error("Ошибка обновления профиля:", err);
+            setMessage("Ошибка при сохранении");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <>
-            <Header />
-            <div className={styles.container}>
-                <div className={styles.formWrapper}>
-                    <h2>Edit Profile</h2>
-                    {message && <p className={styles.message}>{message}</p>}
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Display Name:
-                            <input
-                                type="text"
-                                value={displayName}
-                                onChange={(e) => setDisplayName(e.target.value)}
-                            />
-                        </label>
-                        <label>
-                            Profile Photo URL:
-                            <input
-                                type="text"
-                                value={photoURL}
-                                onChange={(e) => setPhotoURL(e.target.value)}
-                            />
-                        </label>
-                        <button type="submit">Save Changes</button>
-                    </form>
-                </div>
+        <div className={styles.container}>
+            <div className={styles.formWrapper}>
+                <h2>Edit Profile</h2>
+                {message && <p className={styles.message}>{message}</p>}
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Display Name:
+                        <input
+                            type="text"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                    </label>
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                    {preview && <img src={preview} alt="Preview" width={120} style={{ marginTop: 10 }} />}
+                    <br />
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Saving..." : "Save Changes"}
+                    </button>
+                </form>
             </div>
-            <Footer />
-        </>
+        </div>
     );
 };
 
 export default EditProfilePage;
+
+
+

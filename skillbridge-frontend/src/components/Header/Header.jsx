@@ -1,7 +1,21 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 import styles from "./ui/Header.module.sass";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+
+    const handleProfileClick = (e) => {
+        e.preventDefault();
+        if (user) {
+            navigate("/profile");
+        } else {
+            navigate("/login");
+        }
+    };
 
     return (
         <header className={styles.siteheader}>
@@ -12,7 +26,11 @@ const Header = () => {
                 <ul className={styles.nav}>
                     <li><a href="/">Главная</a></li>
                     <li><a href="/">Блог</a></li>
-                    <li><a href="/login">Профиль</a></li>
+                    <li>
+                        <a href="/#" onClick={handleProfileClick}>
+                            {user ? "Профиль" : "Логин"}
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -20,6 +38,7 @@ const Header = () => {
 };
 
 export default Header;
+
 
 
 
