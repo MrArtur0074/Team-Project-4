@@ -1,0 +1,94 @@
+.container
+  max-width: 700px
+  margin: 0 auto
+  padding: 40px 20px
+  display: flex
+  flex-direction: column
+  gap: 15px
+
+input, textarea
+  padding: 10px
+  border: 1px solid #ccc
+  border-radius: 5px
+  font-size: 14px
+
+textarea
+  min-height: 100px
+  resize: vertical
+
+.lesson
+  background: #f9f9f9
+  padding: 15px
+  border-radius: 10px
+  margin-bottom: 20px
+  display: flex
+  flex-direction: column
+  gap: 10px
+  cursor: grab
+  border: 1px dashed #ccc
+
+.lesson:active
+  cursor: grabbing
+  opacity: 0.8
+
+.dragHandle
+  cursor: grab
+  padding: 5px 10px
+  background-color: #ddd
+  border-radius: 5px
+  width: fit-content
+  user-select: none
+
+.dragHandle:active
+  cursor: grabbing
+  background-color: #bbb
+
+
+.addButton, .saveButton, .deleteButton
+  padding: 10px 15px
+  border-radius: 6px
+  cursor: pointer
+  font-size: 16px
+  border: none
+
+.addButton
+  background-color: #28a745
+  color: white
+
+.saveButton
+  background-color: #362d50
+  color: white
+
+.deleteButton
+  background-color: #d42824
+  color: white
+  align-self: flex-start
+
+.categoryButtons
+  display: flex
+  gap: 10px
+  margin-bottom: 20px
+  flex-wrap: wrap
+
+.categoryButton
+  padding: 8px 16px
+  border: 1px solid #ccc
+  border-radius: 8px
+  background-color: #f0f0f0
+  cursor: pointer
+  font-weight: 500
+  transition: all 0.2s ease
+
+.categoryButton:hover
+  background-color: #e0e0e0
+
+.active
+  background-color: #362d50
+  color: #fff
+  border-color: #362d50
+
+.preview
+  width: 100%
+  max-width: 400px
+  margin-top: 10px
+  border-radius: 8px

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import AdminHeader from "../../../components/AdminHeader/AdminHeader";
+import styles from "./ui/AdminUsers.module.sass";
 
 const AdminUsersPage = () => {
     const [uid, setUid] = useState("");
@@ -34,24 +36,28 @@ const AdminUsersPage = () => {
     };
 
     return (
-        <div className="p-4 max-w-xl mx-auto">
-            <h1 className="text-2xl font-bold mb-4">Назначить администратора</h1>
-            <input
-                type="text"
-                value={uid}
-                onChange={(e) => setUid(e.target.value)}
-                placeholder="Введите UID пользователя"
-                className="border p-2 w-full mb-4"
-            />
-            <button
-                onClick={handleMakeAdmin}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-                Назначить админом
-            </button>
-            {status && <p className="mt-3">{status}</p>}
-        </div>
+        <>
+            <AdminHeader />
+            <div className={styles.wrapper}>
+                <h1 className={styles.title}>Назначить администратора</h1>
+                <input
+                    type="text"
+                    value={uid}
+                    onChange={(e) => setUid(e.target.value)}
+                    placeholder="Введите UID пользователя"
+                    className={styles.input}
+                />
+                <button
+                    onClick={handleMakeAdmin}
+                    className={styles.button}
+                >
+                    Назначить админом
+                </button>
+                {status && <p className={styles.status}>{status}</p>}
+            </div>
+        </>
     );
 };
 
 export default AdminUsersPage;
+

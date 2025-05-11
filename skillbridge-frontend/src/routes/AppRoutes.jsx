@@ -10,9 +10,10 @@ import LessonPage from "../pages/Course/LessonPage";
 import CategoryPage from "../pages/Category/CategoryPage";
 import RequireAuth from "./RequireAuth";
 import RequireAdmin from "./RequireAdmin";
-import AdminPage from "../pages/Admin/AdminPage";
-import AdminPanel from "../pages/Admin/AdminPanel";
-import AdminUsersPage from "../pages/Admin/AdminUsersPage";
+import AdminPage from "../pages/Admin/AdminPage/AdminPage";
+import AdminPanel from "../pages/Admin/AdminPanel/AdminPanel";
+import EditCoursePage from "../pages/Admin/AdminPanel/EditCoursePage";
+import AdminUsersPage from "../pages/Admin/AdminUsers/AdminUsersPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
 const AppRoutes = () => {
@@ -37,8 +38,7 @@ const AppRoutes = () => {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/panel" element={<AdminPanel />} />
         <Route path="/admin/panel/course/create" element={<div>Создать курс</div>} />
-        <Route path="/admin/panel/course/:courseId/edit" element={<div>Редактировать курс</div>} />
-        <Route path="/admin/panel/course/:courseId/:lessonId/edit" element={<div>Редактировать урок</div>} />
+        <Route path="/admin/panel/course/:courseId/edit" element={<EditCoursePage />} />
         <Route path="/admin/panel/adminrole" element={<AdminUsersPage />} />
       </Route>
 
