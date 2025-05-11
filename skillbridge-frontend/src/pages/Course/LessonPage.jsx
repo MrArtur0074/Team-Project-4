@@ -1,4 +1,4 @@
-// CoursePage.jsx
+// LessonPage.jsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ui/CoursePage.module.sass";
@@ -27,8 +27,8 @@ const LessonPage = () => {
       <Header />
       <div className={styles.coursecontainer}>
         <h1>{lesson.name}</h1>
-        {lesson.picture && <img src={lesson.picture} alt={lesson.name} className={styles.banner} />}
-        <p>{lesson.text}</p>
+        {lesson.image && <img src={lesson.image} alt={lesson.name} className={styles.banner} />}
+        <p className={styles.lessonText}>{lesson.text}</p>
         <button onClick={() => navigate(-1)} className={styles.backButton}>
           ← Назад
         </button>

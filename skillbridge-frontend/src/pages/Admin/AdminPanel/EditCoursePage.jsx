@@ -251,10 +251,10 @@ const EditCoursePage = () => {
                 onChange={(e) => handleLessonChange(index, "path", e.target.value)}
             />
 
-            <label>Описание</label>
+            <label>Текст урока</label>
             <textarea
-                value={lesson.description || ""}
-                onChange={(e) => handleLessonChange(index, "description", e.target.value)}
+                value={lesson.text || ""}
+                onChange={(e) => handleLessonChange(index, "text", e.target.value)}
                 rows={2}
             />
 
