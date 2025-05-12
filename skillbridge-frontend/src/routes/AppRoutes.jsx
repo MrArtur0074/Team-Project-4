@@ -15,6 +15,7 @@ import AdminPanel from "../pages/Admin/AdminPanel/AdminPanel";
 import EditCoursePage from "../pages/Admin/AdminPanel/EditCoursePage";
 import AdminUsersPage from "../pages/Admin/AdminUsers/AdminUsersPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import CreateCoursePage from "../pages/Admin/AdminPanel/CreateCoursePage";
 
 const AppRoutes = () => {
   return (
@@ -37,7 +38,7 @@ const AppRoutes = () => {
       <Route element={<RequireAdmin />}>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/panel" element={<AdminPanel />} />
-        <Route path="/admin/panel/course/create" element={<div>Создать курс</div>} />
+        <Route path="/admin/panel/course/create" element={<CreateCoursePage />} />
         <Route path="/admin/panel/course/:courseId/edit" element={<EditCoursePage />} />
         <Route path="/admin/panel/adminrole" element={<AdminUsersPage />} />
       </Route>

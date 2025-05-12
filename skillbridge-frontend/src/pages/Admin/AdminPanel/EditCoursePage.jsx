@@ -280,7 +280,9 @@ const EditCoursePage = () => {
         <button onClick={handleAddLesson} className={styles.addButton}>
             ➕ Добавить урок
         </button>
-
+        <button onClick={() => navigate("/admin/panel")} className={styles.backButton}>
+                  ← Назад
+        </button>
         <button onClick={handleSave} disabled={saving} className={styles.saveButton}>
             {saving ? "Сохранение..." : "Сохранить изменения"}
         </button>

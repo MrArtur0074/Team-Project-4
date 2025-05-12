@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../../components/AdminHeader/AdminHeader";
 import styles from "./ui/AdminUsers.module.sass";
+
 
 const AdminUsersPage = () => {
     const [uid, setUid] = useState("");
     const [status, setStatus] = useState("");
+    const navigate = useNavigate();
 
     const handleMakeAdmin = async () => {
         setStatus("Обработка...");
@@ -54,6 +57,9 @@ const AdminUsersPage = () => {
                     Назначить админом
                 </button>
                 {status && <p className={styles.status}>{status}</p>}
+                <button onClick={() => navigate("/admin")} className={styles.backButton}>
+                    ← Назад
+                </button>
             </div>
         </>
     );
