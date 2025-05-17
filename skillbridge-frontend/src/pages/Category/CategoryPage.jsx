@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
@@ -6,6 +6,7 @@ import { db } from "../../firebase";
 import styles from "./ui/CategoryPage.module.sass";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import CategoryListBlock from "../../components/Search/CategoryListBlock";
 
 const CategoryPage = () => {
   const { categoryId } = useParams(); 
@@ -20,11 +21,19 @@ const CategoryPage = () => {
   const category = categories.find(c => c.id === categoryId);
   const filteredCourses = courses.filter(course => course.category === categoryId);
 
+  // Другие категории (исключая текущую)
+  const otherCategories = categories.filter(c => c.id !== categoryId);
+
   return (
     <>
       <Header />
       <div className={styles.categorycontainer}>
         <h2 className={styles.categoryTitle}>{category?.name || "Категория"}</h2>
+
+        <button onClick={() => navigate("/")} className={styles.backButton}>
+          ← Назад на главную
+        </button>
+
         <div className={styles.courseList}>
           {filteredCourses.length > 0 ? (
             filteredCourses.map(course => (
@@ -41,6 +50,9 @@ const CategoryPage = () => {
             <p>Нет курсов в этой категории.</p>
           )}
         </div>
+
+        <h3 className={styles.otherTitle}>Другие категории</h3>
+        <CategoryListBlock categories={otherCategories} />
       </div>
       <Footer />
     </>
@@ -48,3 +60,4 @@ const CategoryPage = () => {
 };
 
 export default CategoryPage;
+

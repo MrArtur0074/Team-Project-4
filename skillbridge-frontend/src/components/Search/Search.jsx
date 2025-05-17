@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ui/Search.module.sass";
 import CourseSearchBlock from "./CourseSearchBlock";
+import CategoryListBlock from "./CategoryListBlock";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -64,29 +65,10 @@ const Search = () => {
       <h2 className={styles.title}>Популярные курсы</h2>
       <CourseSearchBlock categories={categories} />
 
-
       <h2 className={styles.title}>Категории</h2>
-      <div className={styles.categories}>
-        {categories.map((cat) => (
-          <div
-            key={cat.id}
-            className={styles.categoryCard}
-            style={{ borderColor: cat.color }}
-            onClick={() => navigate(`/category/${cat.id}`)}
-          >
-            <div
-              className={styles.imageSection}
-              style={{ backgroundImage: `url(${cat.image})` }}
-            />
-            <div className={styles.textSection}>
-              <h3 style={{ color: cat.color }}>{cat.name}</h3>
-            </div>
-          </div>
-        ))}
-      </div>
+      <CategoryListBlock categories={categories} />
     </div>
   );
 };
 
 export default Search;
-
