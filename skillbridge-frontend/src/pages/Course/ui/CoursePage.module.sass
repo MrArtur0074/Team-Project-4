@@ -97,6 +97,10 @@
             background-color: #e3e3e3
             transform: translateY(-2px)
             transition: all 0.3s ease
+    .navigationButton
+        display: flex
+        gap: 10px
+        flex-wrap: wrap
     .backButton
         margin-top: 20px
         padding: 10px 20px
@@ -107,7 +111,6 @@
         color: #fff
         cursor: pointer
         transition: background-color 0.3s ease
-
         &:hover
             background-color: #333
 
@@ -136,3 +139,13 @@
         li
             font-size: 16px
             padding: 10px 15px
+
+@media (max-width: 600px)
+    .coursecontainer
+        .navigationButton
+            display: flex
+            gap: 10px
+            flex-direction: column
+        .backButton
+            margin-top: 0
+                

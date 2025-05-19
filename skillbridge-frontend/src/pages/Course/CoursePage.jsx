@@ -52,6 +52,7 @@ const CoursePage = () => {
           <ul>
             {allCourses
               .filter((item) => item.category === course.category && item.id !== courseId)
+              .slice(0, 6)
               .map((item) => (
                 <li key={item.id} onClick={() => navigate(`/course/${item.id}`)} style={{ cursor: "pointer" }}>
                   {item.title}
@@ -63,6 +64,7 @@ const CoursePage = () => {
           <ul>
             {allCourses
               .filter((item) => item.id !== courseId)
+              .slice(0, 6)
               .map((item) => (
                 <li key={item.id} onClick={() => navigate(`/course/${item.id}`)} style={{ cursor: "pointer" }}>
                   {item.title}
@@ -76,4 +78,4 @@ const CoursePage = () => {
   );
 };
 
-export default CoursePage;
+export default CoursePage; 

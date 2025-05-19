@@ -26,7 +26,7 @@ const LoginPage = () => {
         <Header />
         <div className={styles.container}>
             <div className={styles.formWrapper}>
-                <h2 className={styles.title}>Login</h2>
+                <h2 className={styles.title}>Логин</h2>
                 {error && <p className="text-red-500">{error.message}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
@@ -42,7 +42,7 @@ const LoginPage = () => {
                     <input
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Пароль"
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         className={styles.input}
@@ -50,11 +50,11 @@ const LoginPage = () => {
                         required
                     />
                     <button type="submit" className={styles.button} disabled={loading}>
-                        {loading ? "Logging in..." : "Login"}
+                        {loading ? "Вход в систему..." : "Логин"}
                     </button>
                 </form>
                 <button onClick={() => navigate("/register")} className={styles.button}>
-                    I don't register
+                    Создать аккаунт
                 </button>
             </div>
         </div>

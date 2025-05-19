@@ -18,9 +18,14 @@ const LessonPage = () => {
   if (error || !courseSnap.exists()) return <h1 className={styles.coursecontainer}>Курс не найден</h1>;
 
   const course = courseSnap.data();
-  const lesson = course.lessons?.find((l) => l.path.endsWith(lessonID));
+  const lessons = course.lessons || [];
 
-  if (!lesson) return <h1 className={styles.coursecontainer}>Урок не найден</h1>;
+  const currentIndex = lessons.findIndex((l) => l.path.endsWith(lessonID));
+  if (currentIndex === -1) return <h1 className={styles.coursecontainer}>Урок не найден</h1>;
+
+  const lesson = lessons[currentIndex];
+  const prevLesson = lessons[currentIndex - 1];
+  const nextLesson = lessons[currentIndex + 1];
 
   return (
     <>
@@ -29,9 +34,30 @@ const LessonPage = () => {
         <h1>{lesson.name}</h1>
         {lesson.image && <img src={lesson.image} alt={lesson.name} className={styles.banner} />}
         <p className={styles.lessonText}>{lesson.text}</p>
-        <button onClick={() => navigate(-1)} className={styles.backButton}>
-          ← Назад
-        </button>
+
+        <div className={styles.navigationButton}>
+          <button
+            onClick={() => prevLesson && navigate(prevLesson.path)}
+            className={styles.backButton}
+            disabled={!prevLesson}
+            style={!prevLesson ? { opacity: 0.5, cursor: "not-allowed" } : {}}
+          >
+            ← Предыдущий
+          </button>
+
+          <button
+            onClick={() => nextLesson && navigate(nextLesson.path)}
+            className={styles.backButton}
+            disabled={!nextLesson}
+            style={!nextLesson ? { opacity: 0.5, cursor: "not-allowed" } : {}}
+          >
+            Следующий →
+          </button>
+
+          <button onClick={() => navigate(`/course/${courseId}`)} className={styles.backButton}>
+            Назад на курс
+          </button>
+        </div>
       </div>
       <Footer />
     </>
@@ -39,3 +65,4 @@ const LessonPage = () => {
 };
 
 export default LessonPage;
+

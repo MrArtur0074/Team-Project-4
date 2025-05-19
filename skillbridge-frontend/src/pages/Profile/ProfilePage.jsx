@@ -48,18 +48,18 @@ const ProfilePage = () => {
                                     className={styles.avatar}
                                 />
                             )}
-                            <p><strong>Display Name:</strong> {user.displayName || "Not set"}</p>
+                            <p><strong>Имя профиля:</strong> {user.displayName || "Not set"}</p>
                             <p><strong>Email:</strong> {user.email}</p>
-                            <p><strong>Created:</strong> {user.metadata?.creationTime}</p>
-                            <p><strong>Last Login:</strong> {user.metadata?.lastSignInTime}</p>
+                            <p><strong>Дата создания:</strong> {user.metadata?.creationTime}</p>
+                            <p><strong>Последний вход в систему:</strong> {user.metadata?.lastSignInTime}</p>
 
                             <div className={styles.buttonGrid}>
-                                <button onClick={() => signOut(auth)} className={styles.logoutBtn}>Logout</button>
-                                <button onClick={() => navigate("/edit-profile")} className={styles.editBtn}>Edit Profile</button>
+                                <button onClick={() => signOut(auth)} className={styles.logoutBtn}>Выйти</button>
+                                <button onClick={() => navigate("/edit-profile")} className={styles.editBtn}>Редактировать</button>
                                 {isAdmin && (
                                     <>
-                                    <button onClick={() => navigate("/admin")} className={styles.adminBtn}>Admin Page</button>
-                                    <button onClick={() => navigate("/admin/panel")} className={styles.adminBtn}>Admin Panel</button>
+                                    <button onClick={() => navigate("/admin")} className={styles.adminBtn}>Админ меню</button>
+                                    <button onClick={() => navigate("/admin/panel")} className={styles.adminBtn}>Админ панель</button>
                                     </>
                                 )}
                             </div>
@@ -73,5 +73,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-

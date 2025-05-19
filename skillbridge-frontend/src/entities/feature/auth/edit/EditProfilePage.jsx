@@ -66,11 +66,11 @@ const EditProfilePage = () => {
     return (
         <div className={styles.container}>
             <div className={styles.formWrapper}>
-                <h2>Edit Profile</h2>
+                <h2>Редактировать профиль</h2>
                 {message && <p className={styles.message}>{message}</p>}
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Display Name:
+                        Имя профиля:
                         <input
                             type="text"
                             value={displayName}
@@ -78,10 +78,17 @@ const EditProfilePage = () => {
                         />
                     </label>
                     <input type="file" accept="image/*" onChange={handleImageChange} />
-                    {preview && <img src={preview} alt="Preview" width={120} style={{ marginTop: 10 }} />}
+                    {preview && <img src={preview} alt="Preview" width={120} style={{ marginTop: 10}} />}
                     <br />
                     <button type="submit" disabled={loading}>
-                        {loading ? "Saving..." : "Save Changes"}
+                        {loading ? "Сохраняется..." : "Сохранить измения"}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => navigate("/profile")}
+                        className={styles.cancelButton}
+                        >
+                        Выйти без сохранения
                     </button>
                 </form>
             </div>
