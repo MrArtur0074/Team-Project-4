@@ -8,69 +8,58 @@
 body
   font-family: 'Poppins', sans-serif
   min-height: 100vh
-  display: block
-  align-items: center
-  justify-content: center
 
 .siteFooter
   background-color: #26272b
-  padding: 45px 0 20px
+  padding: 20px 0 
   font-size: 15px
   line-height: 24px
   color: #737373
   box-shadow: 0 10px 20px rgba(0,0,0,0.5)
 
-.siteFooter hr
-  border-top-color: #bbb
-  opacity: 0.5
-
-.small
-  margin: 20px 0
-
 .siteFooter h6
   color: #fff
   font-size: 16px
   text-transform: uppercase
-  margin-top: 5px
+  margin: 10px 0
   letter-spacing: 2px
 
-.siteFooter a
-  color: #737373
-  &:hover
-    color: #fff
-    text-decoration: none
-
 .footerLinks
-  padding-left: 0
   list-style: none
+  padding: 0
 
 .footerLinks li
-  display: block
+  margin-bottom: 8px
 
 .footerLinks a
   color: #737373
-  &:active,
-  &:focus,
+  text-decoration: none
   &:hover
     color: #fff
-    text-decoration: none
+
+.linkButton
+  background: none
+  border: none
+  padding: 0
+  font: inherit
+  color: #737373
+  cursor: pointer
+  text-decoration: none
+  &:hover
+    color: #fff
 
 .container
   width: 100%
-  padding-right: 15px
-  padding-left: 15px
-  margin-right: auto
-  margin-left: auto
+  padding: 0 15px
+  margin: 0 auto
 
 .row
   display: flex
   flex-wrap: wrap
-  margin-right: -15px
-  margin-left: -15px
+  margin: 0 -15px
 
 .col
-  padding-right: 15px
-  padding-left: 15px
+  padding: 0 15px
   flex: 1
 
 .colMd6
@@ -85,82 +74,31 @@ body
   flex: 0 0 66.666667%
   max-width: 66.666667%
 
-.colMd4
-  flex: 0 0 33.333333%
-  max-width: 33.333333%
-
 .textJustify
   text-align: justify
-
-.socialIcons
-  padding-left: 0
-  margin-bottom: 0
-  list-style: none
-  text-align: right
-
-.socialIcons li
-  display: inline-block
-  margin-bottom: 4px
-
-.socialIcons a
-  background-color: #eceeef
-  color: #818a91
-  font-size: 16px
-  display: inline-block
-  line-height: 44px
-  width: 44px
-  height: 44px
-  text-align: center
-  margin-right: 8px
-  border-radius: 100%
-  transition: all 0.2s linear
-
-.socialIcons a:active,
-.socialIcons a:focus,
-.socialIcons a:hover
-  color: #fff
-  background-color: #29aafe
-
-.facebook:hover
-  background-color: #3b5998
-
-.twitter:hover
-  background-color: #00aced
-
-.linkedin:hover
-  background-color: #007bb6
-
-.dribbble:hover
-  background-color: #ea4c89
 
 .logo
   color: #eb6857
 
 .copyrightText
-  margin: 0
-
-@media (max-width: 990px)
-  [class^="col"]
-    margin-bottom: 30px
+  margin-top: 20px
 
 @media (max-width: 768px)
   .siteFooter
-    padding-bottom: 0
-    display: flex
-    flex-direction: column
-    align-items: center
     text-align: center
-  .copyrightText,
-  .socialIcons
-    text-align: center
+    padding: 20px 0 10px
+
   .row
     flex-direction: column
     align-items: center
 
-  .colMd3, .colMd6, .colMd8
-    flex: 0 0 100%
+  .colMd3,
+  .colMd6,
+  .colMd8
     max-width: 100%
-    text-align: center
+    flex: 0 0 100%
 
   .footerLinks
     padding: 0
+
+

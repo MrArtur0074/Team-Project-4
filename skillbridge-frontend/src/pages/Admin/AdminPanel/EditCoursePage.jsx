@@ -212,7 +212,11 @@ const EditCoursePage = () => {
             </button>
             ))}
         </div>
-
+        <label>Путь курса</label>
+          <input
+            value={course.path || ""}
+            onChange={(e) => setCourse({ ...course, path: e.target.value })}
+          />
         <label>Баннер курса</label>
         <input type="file" accept="image/*" onChange={handleBannerChange} />
         {bannerPreview && (

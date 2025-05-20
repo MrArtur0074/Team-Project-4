@@ -31,7 +31,7 @@ const LessonPage = () => {
     <>
       <Header />
       <div className={styles.coursecontainer}>
-        <h1>{lesson.name}</h1>
+        <h2>{lesson.name}</h2>
         {lesson.image && <img src={lesson.image} alt={lesson.name} className={styles.banner} />}
         <p className={styles.lessonText}>{lesson.text}</p>
 
